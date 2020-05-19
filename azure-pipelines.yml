@@ -9,10 +9,6 @@ variables:
   - name: HAB_LICENSE
     value: accept
 
-  # Set the origin to be used
-  - name: HAB_ORIGIN
-    value: russellseymour
-
 stages:
   - stage: hab_export_docker
     displayName: Hab Export Docker image
@@ -28,6 +24,12 @@ stages:
           - task: vsts-habitat-install@3
             displayName: Install Habitat
           
+          # Write out signing keys, revisions and set the HAB_ORIGIN using the named service connection
+          - task: vsts-habitat-signing-key@3
+            inputs:
+              habitatOrigin: $(habitatServiceConnectionName)
+              taskAction: 'install'          
+
           # Build the package
           - task: vsts-habitat-build@3
             displayName: Build Habitat Package
