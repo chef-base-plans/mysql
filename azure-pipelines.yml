@@ -9,6 +9,10 @@ variables:
   - name: HAB_LICENSE
     value: accept
 
+  # Set the origin to be used
+  - name: HAB_ORIGIN
+    value: russellseymour
+
 stages:
   - stage: hab_export_docker
     displayName: Hab Export Docker image
