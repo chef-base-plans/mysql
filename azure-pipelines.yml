@@ -26,6 +26,7 @@ stages:
           
           # Write out signing keys, revisions and set the HAB_ORIGIN using the named service connection
           - task: vsts-habitat-signing-key@3
+            displayName: Configure Habitat Environment
             inputs:
               habitatOrigin: $(habitatServiceConnectionName)
               taskAction: 'install'          
@@ -36,7 +37,7 @@ stages:
             inputs:
               habitatOrigin: $(habitatServiceConnectionName)
               habitatSrcPath: $(Build.SourcesDirectory)
-              habitatPlanContext: $(Build.SourcesDirectory)
+              habitatPlanContext: .
 
           # Expose the build env vars to they can be used by the rest of the pipeline
           - task: vsts-habitat-expose-habitat-build-vars@3
