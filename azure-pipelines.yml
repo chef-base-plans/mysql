@@ -1,0 +1,38 @@
+# Pipeline file for Azure DevOps
+name: 0.0$(Rev:.r)
+
+variables:
+  - name: habitatServiceConnectionName
+    value: "Habitat - russellseymour"
+
+stages:
+  - stage: hab_export_docker
+    displayName: Hab Export Docker image
+    jobs:
+
+      # Install Habitat to perform the build using the plan file
+      - task: vsts-habitat-install@3
+        displayName: Install Habitat
+      
+      # Build the package
+      - task: vsts-habitat-build@3
+        displayName: Build Habitat Package
+        inputs:
+          habitatOrigin: $(habitatServiceConnectionName)
+          habitatSrcPath: $(Build.SourcesDirectory)
+          habitatPlanContext: $(Build.SourcesDirectory)
+
+      # Expose the build env vars to they can be used by the rest of the pipeline
+      - task: vsts-habitat-expose-habitat-build-vars@3
+        displayName: Expose Habitat build variables
+        inputs:
+          habitatLastBuildEnvPath: '$(Build.SourcesDirectory)/results'
+          habitatImageNamesFilename: '$(System.DefaultWorkingDirectory)/image.names'
+
+      # Export the built image as a docker image
+      - task: vsts-habitat-pkg-export@3
+        displayName: Export as Docker image
+        inputs:
+          habitatOrigin: $(habitatServiceConnectionName)
+          habitatExportFormat: 'docker'
+          habitatPackagePath: '$(Build.SourcesDirectory)/results/$(pkg.artifact)'
