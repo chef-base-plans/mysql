@@ -5,6 +5,10 @@ variables:
   - name: habitatServiceConnectionName
     value: "Habitat - russellseymour"
 
+  # Accept the habitat license
+  - name: HAB_LICENSE
+    value: accept
+
 stages:
   - stage: hab_export_docker
     displayName: Hab Export Docker image
