@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/chefcorp-partnerengineering/Habitat%20Base%20Plans/_apis/build/status/chef-base-plans.mysql?branchName=master)](https://dev.azure.com/chefcorp-partnerengineering/Habitat%20Base%20Plans/_build/latest?definitionId=68&branchName=master)
+
 # MySQL
 
 This MySQL plan supports standalone and clustered modes
