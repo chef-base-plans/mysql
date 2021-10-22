@@ -30,6 +30,7 @@ pkg_deps=(
   core/perl
   core/procps-ng
   core/sed
+  core/rpcsvc-proto
 )
 pkg_build_deps=(
   core/bison
